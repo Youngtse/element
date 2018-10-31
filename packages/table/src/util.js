@@ -30,6 +30,8 @@ export const orderBy = function(array, sortKey, reverse, sortMethod) {
   return array.slice().sort(sortMethod ? function(a, b) {
     return sortMethod(a, b) ? order : -order;
   } : function(a, b) {
+    typeof a === 'undefined' && (a = '');
+    typeof b === 'undefined' && (b = '');
     if (sortKey !== '$key') {
       if (isObject(a) && '$value' in a) a = a.$value;
       if (isObject(b) && '$value' in b) b = b.$value;
