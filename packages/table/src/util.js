@@ -30,14 +30,14 @@ export const orderBy = function(array, sortKey, reverse, sortMethod) {
   return array.slice().sort(sortMethod ? function(a, b) {
     return sortMethod(a, b) ? order : -order;
   } : function(a, b) {
-    typeof a === 'undefined' && (a = '');
-    typeof b === 'undefined' && (b = '');
     if (sortKey !== '$key') {
       if (isObject(a) && '$value' in a) a = a.$value;
       if (isObject(b) && '$value' in b) b = b.$value;
     }
     a = isObject(a) ? getValueByPath(a, sortKey) : a;
     b = isObject(b) ? getValueByPath(b, sortKey) : b;
+    typeof a === 'undefined' && (a = '');
+    typeof b === 'undefined' && (b = '');
     return a === b ? 0 : a > b ? order : -order;
   });
 };
