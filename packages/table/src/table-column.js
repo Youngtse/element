@@ -110,10 +110,14 @@ const getDefaultColumn = function(type, options) {
 const DEFAULT_RENDER_CELL = function(h, { row, column, $index }) {
   const property = column.property;
   const value = property && getPropByPath(row, property).v;
-  if (column && column.formatter) {
-    return column.formatter(row, column, value, $index);
+  if (!value) {
+    return property;
   }
   return value;
+  // if (column && column.formatter) {
+  //   return column.formatter(row, column, value, $index);
+  // }
+  // return value;
 };
 
 const parseWidth = (width) => {
@@ -327,6 +331,7 @@ export default {
         renderCell = DEFAULT_RENDER_CELL;
       }
 
+      renderCell = DEFAULT_RENDER_CELL;
       return _self.showOverflowTooltip || _self.showTooltipWhenOverflow
         ? <div class="cell el-tooltip" style={ {width: (data.column.realWidth || data.column.width) - 1 + 'px'} }>{ renderCell(h, data) }</div>
         : <div class="cell">{ renderCell(h, data) }</div>;
